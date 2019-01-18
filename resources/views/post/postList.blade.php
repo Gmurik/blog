@@ -65,11 +65,13 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    All posts
                 </div>
-                <h1>Blog</h1>
+
+
             </div>
         </div>
     </body>
