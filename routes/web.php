@@ -11,23 +11,60 @@
 |
 */
 use Illuminate\Support\Facades\Route;
-
+//main page
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('main');
+})->name('main');
 
-// работа с постами
-Route::get('post/list','PostController@postList');
-Route::get('post/{id?}','PostController@post')->where('id','[1-9]+');
-Route::get('post/add','PostController@addPost');
-Route::post('post/add','PostController@addPost');
+// posts
+Route::group(['prefix' => 'post'], function () {
 
-//работа с авторизацией
-Route::get('user/create','AuthController@showCreateUserForm');
-Route::post('user/create','AuthController@createUser');
+    Route::get('/list','PostController@postList')
+    ->name('blog.post.list');
 
-Route::get('user/login','AuthController@showLoginUserForm');
-Route::post('user/login','AuthController@loginUser');
+    Route::get('/{id?}','PostController@post')->where('id','[1-9]+')
+    ->name('blog.post.single');
+
+    Route::get('/add','PostController@addPost')
+    ->name('blog.post.showCreateForm');
+
+    Route::post('/add','PostController@addPost')
+    ->name('blog.post.sendNewPost');
+
+});
+
+//auth
+Route::group(['prefix' => 'user'], function () {
+
+    Route::get('/create','AuthController@showCreateUserForm')
+    ->name('blog.user.showCreateNewUserForm');
+
+    Route::post('/create','AuthController@createUser')
+    ->name('blog.user.createNewUser');
+
+    Route::get('/login','AuthController@showLoginUserForm')
+    ->name('blog.user.showAuthForm');
+
+    Route::post('/login','AuthController@loginUser')
+    ->name('blog.user.authUser');
+
+});
+
+//feedback
+Route::get('/feedback','@')
+    ->name('blog.others.showFeedbackForm');
+
+Route::post('/feedback','@')
+    ->name('blog.others.sendFeedback');
+
+//AboutMe
+Route::get('/about-me','@')
+    ->name('blog.others.aboutMe');
+
+
+
+
+
 
 
 
