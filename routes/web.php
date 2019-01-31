@@ -13,14 +13,14 @@
 use Illuminate\Support\Facades\Route;
 //main page
 Route::get('/', function () {
-    return view('main');
+    return view('layouts.two_column');
 })->name('main');
 
 // posts
 Route::group(['prefix' => 'post'], function () {
 
-    Route::get('/list','PostController@postList')
-    ->name('blog.post.list');
+//    Route::get('/list','PostController@postList')
+//    ->name('blog.post.list');
 
     Route::get('/{id?}','PostController@post')->where('id','[1-9]+')
     ->name('blog.post.single');
